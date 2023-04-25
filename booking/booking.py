@@ -2,8 +2,7 @@ import booking.constants as const
 import os
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+from booking.booking_filtration import BookingFiltration
 import time
 
 
@@ -80,6 +79,11 @@ class Booking(webdriver.Chrome):
     def click_search(self):
         search_btn = self.find_element(By.CSS_SELECTOR, 'button[type="submit"')
         search_btn.click()
+
+    def apply_filtrations(self):
+        # Here we will call all the methods that have been created inside the booking_filtration.py file.
+        filtration = BookingFiltration(driver=self)
+        filtration.apply_star_rating(5)
 
     # Teardown
     def __exit__(self, exc_type, exc_val, exc_tb):
